@@ -13,6 +13,14 @@
 		520725601D0116AE0044D7E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5207255E1D0116AE0044D7E1 /* Main.storyboard */; };
 		520725621D0116AE0044D7E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 520725611D0116AE0044D7E1 /* Assets.xcassets */; };
 		520725651D0116AE0044D7E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520725631D0116AE0044D7E1 /* LaunchScreen.storyboard */; };
+		5207256F1D0116FE0044D7E1 /* DTPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5207256E1D0116FE0044D7E1 /* DTPhotoPreviewController.m */; };
+		520725721D0118370044D7E1 /* DTPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725711D0118370044D7E1 /* DTPhotoPickerController.m */; };
+		5207258A1D0188230044D7E1 /* DTPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725891D0188230044D7E1 /* DTPhotoPreviewCell.m */; };
+		520725941D018E850044D7E1 /* PHCollection+Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 5207258D1D018E850044D7E1 /* PHCollection+Collection.m */; };
+		520725951D018E850044D7E1 /* PHFetchResult+Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 5207258F1D018E850044D7E1 /* PHFetchResult+Array.m */; };
+		520725961D018E850044D7E1 /* PHImageManager+ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725911D018E850044D7E1 /* PHImageManager+ImageManager.m */; };
+		520725971D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725931D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m */; };
+		52225F121D05170600AA8E6F /* UIImageView+PHAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 52225F111D05170600AA8E6F /* UIImageView+PHAsset.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,22 @@
 		520725611D0116AE0044D7E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		520725641D0116AE0044D7E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		520725661D0116AE0044D7E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5207256D1D0116FE0044D7E1 /* DTPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPhotoPreviewController.h; sourceTree = "<group>"; };
+		5207256E1D0116FE0044D7E1 /* DTPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTPhotoPreviewController.m; sourceTree = "<group>"; };
+		520725701D0118370044D7E1 /* DTPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPhotoPickerController.h; sourceTree = "<group>"; };
+		520725711D0118370044D7E1 /* DTPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTPhotoPickerController.m; sourceTree = "<group>"; };
+		520725881D0188230044D7E1 /* DTPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPhotoPreviewCell.h; sourceTree = "<group>"; };
+		520725891D0188230044D7E1 /* DTPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTPhotoPreviewCell.m; sourceTree = "<group>"; };
+		5207258C1D018E850044D7E1 /* PHCollection+Collection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHCollection+Collection.h"; sourceTree = "<group>"; };
+		5207258D1D018E850044D7E1 /* PHCollection+Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHCollection+Collection.m"; sourceTree = "<group>"; };
+		5207258E1D018E850044D7E1 /* PHFetchResult+Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHFetchResult+Array.h"; sourceTree = "<group>"; };
+		5207258F1D018E850044D7E1 /* PHFetchResult+Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHFetchResult+Array.m"; sourceTree = "<group>"; };
+		520725901D018E850044D7E1 /* PHImageManager+ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHImageManager+ImageManager.h"; sourceTree = "<group>"; };
+		520725911D018E850044D7E1 /* PHImageManager+ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHImageManager+ImageManager.m"; sourceTree = "<group>"; };
+		520725921D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+PhotoLibrary.h"; sourceTree = "<group>"; };
+		520725931D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+PhotoLibrary.m"; sourceTree = "<group>"; };
+		52225F101D05170600AA8E6F /* UIImageView+PHAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PHAsset.h"; sourceTree = "<group>"; };
+		52225F111D05170600AA8E6F /* UIImageView+PHAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PHAsset.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +82,7 @@
 		520725541D0116AE0044D7E1 /* DTPhotoPickerController */ = {
 			isa = PBXGroup;
 			children = (
+				5207256C1D0116B80044D7E1 /* DTPhotoPickerController */,
 				520725581D0116AE0044D7E1 /* AppDelegate.h */,
 				520725591D0116AE0044D7E1 /* AppDelegate.m */,
 				5207255B1D0116AE0044D7E1 /* ViewController.h */,
@@ -68,7 +93,8 @@
 				520725661D0116AE0044D7E1 /* Info.plist */,
 				520725551D0116AE0044D7E1 /* Supporting Files */,
 			);
-			path = DTPhotoPickerController;
+			name = DTPhotoPickerController;
+			path = DTPhotoPickerControllerDemo;
 			sourceTree = "<group>";
 		};
 		520725551D0116AE0044D7E1 /* Supporting Files */ = {
@@ -77,6 +103,46 @@
 				520725561D0116AE0044D7E1 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5207256C1D0116B80044D7E1 /* DTPhotoPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				5207258B1D018E850044D7E1 /* Categories */,
+				520725871D0187FC0044D7E1 /* Cell */,
+				520725701D0118370044D7E1 /* DTPhotoPickerController.h */,
+				520725711D0118370044D7E1 /* DTPhotoPickerController.m */,
+				5207256D1D0116FE0044D7E1 /* DTPhotoPreviewController.h */,
+				5207256E1D0116FE0044D7E1 /* DTPhotoPreviewController.m */,
+			);
+			name = DTPhotoPickerController;
+			path = ../DTPhotoPickerController;
+			sourceTree = "<group>";
+		};
+		520725871D0187FC0044D7E1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				520725881D0188230044D7E1 /* DTPhotoPreviewCell.h */,
+				520725891D0188230044D7E1 /* DTPhotoPreviewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		5207258B1D018E850044D7E1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5207258C1D018E850044D7E1 /* PHCollection+Collection.h */,
+				5207258D1D018E850044D7E1 /* PHCollection+Collection.m */,
+				5207258E1D018E850044D7E1 /* PHFetchResult+Array.h */,
+				5207258F1D018E850044D7E1 /* PHFetchResult+Array.m */,
+				520725901D018E850044D7E1 /* PHImageManager+ImageManager.h */,
+				520725911D018E850044D7E1 /* PHImageManager+ImageManager.m */,
+				520725921D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.h */,
+				520725931D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m */,
+				52225F101D05170600AA8E6F /* UIImageView+PHAsset.h */,
+				52225F111D05170600AA8E6F /* UIImageView+PHAsset.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +215,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5207256F1D0116FE0044D7E1 /* DTPhotoPreviewController.m in Sources */,
+				5207258A1D0188230044D7E1 /* DTPhotoPreviewCell.m in Sources */,
 				5207255D1D0116AE0044D7E1 /* ViewController.m in Sources */,
+				520725951D018E850044D7E1 /* PHFetchResult+Array.m in Sources */,
 				5207255A1D0116AE0044D7E1 /* AppDelegate.m in Sources */,
 				520725571D0116AE0044D7E1 /* main.m in Sources */,
+				52225F121D05170600AA8E6F /* UIImageView+PHAsset.m in Sources */,
+				520725721D0118370044D7E1 /* DTPhotoPickerController.m in Sources */,
+				520725941D018E850044D7E1 /* PHCollection+Collection.m in Sources */,
+				520725961D018E850044D7E1 /* PHImageManager+ImageManager.m in Sources */,
+				520725971D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +339,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = DTPhotoPickerController/Info.plist;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/DTPhotoPickerControllerDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darktt.DTPhotoPickerController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -276,7 +351,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = DTPhotoPickerController/Info.plist;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				INFOPLIST_FILE = "$(SRCROOT)/DTPhotoPickerControllerDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.darktt.DTPhotoPickerController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,6 +378,7 @@
 				5207256B1D0116AE0044D7E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
