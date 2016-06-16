@@ -30,7 +30,13 @@ static NSDateFormatter *kDateFormatter = nil;
         return;
     }
     
-    PHImageManagerFetchImageResult resultHandler = ^(UIImage *image) {
+    PHImageManagerFetchImageResultHandler resultHandler = ^(UIImage *image, NSError *error) {
+        
+        if (error != nil) {
+            
+            return;
+        }
+        
         NSData *data = UIImageJPEGRepresentation(image, 1.0f);
         [data writeToFile:savePath atomically:NO];
         

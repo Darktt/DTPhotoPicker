@@ -6,10 +6,12 @@
 //
 
 #import "DTPhotoPreviewCell.h"
+#import "DTProgressView.h"
 
 @interface DTPhotoPreviewCell ()
 
 @property (assign, nonatomic) UIImageView *imageView;
+@property (assign, nonatomic) DTProgressView *progressView;
 @property (assign, nonatomic) UIView *selectionView;
 @property (assign, nonatomic) UILabel *selectionLabel;
 
@@ -33,12 +35,23 @@
     [self setSelectedColor:selectedColor];
     [self addObserver:self forKeyPath:@"selectedColor" options:NSKeyValueObservingOptionNew context:nil];
     
+    CGRect bounds = self.bounds;
+    
     {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         
         [self setImageView:imageView];
         [self.contentView addSubview:imageView];
         [imageView release];
+    }
+    
+    {
+        DTProgressView *progressView = [DTProgressView progressWithFrame:bounds];
+        [progressView setShowsText:YES];
+        [progressView setHidden:YES];
+        
+        [self setProgressView:progressView];
+        [self.contentView addSubview:progressView];
     }
     
     {
@@ -57,13 +70,12 @@
     
     {
         UIColor *textColor = [UIColor whiteColor];
+        CGRect rect = CGRectMake(0.0f, 0.0f, 25.0f, 25.0f);
         
-        UILabel *selectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [selectionLabel setText:@"0"];
+        UILabel *selectionLabel = [[UILabel alloc] initWithFrame:rect];
         [selectionLabel setTextColor:textColor];
         [selectionLabel setTextAlignment:NSTextAlignmentCenter];
         [selectionLabel setBackgroundColor:self.selectedColor];
-        [selectionLabel sizeToFit];
         
         [self setSelectionLabel:selectionLabel];
         [self.selectionView addSubview:selectionLabel];
@@ -111,6 +123,7 @@
     [self setSelected:NO];
     [self setSelectionCount:0];
     [self.imageView setImage:nil];
+    [self.progressView setHidden:YES];
     [self.selectionView setHidden:YES];
 }
 
@@ -135,6 +148,28 @@
     
     [self.selectionView setHidden:!selected];
 }
+
+- (void)setShowsDownloadProgress:(BOOL)showsDownloadProgress
+{
+    [self.progressView setHidden:!showsDownloadProgress animation:YES];
+}
+
+- (BOOL)showsDownloadProgress
+{
+    return !self.progressView.hidden;
+}
+
+- (void)setProgress:(CGFloat)progress
+{
+    [self.progressView setProgress:progress];
+}
+
+- (CGFloat)progress
+{
+    return self.progressView.progress;
+}
+
+#pragma mark - Key Value Observer
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {

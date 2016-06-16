@@ -16,6 +16,7 @@
 @end
 
 @implementation DTPhotoPickerController
+@dynamic delegate;
 
 + (instancetype)photoPickerControllerWithDelegate:(id<DTPhotoPickerControllerDelegate>)delegate
 {
@@ -31,9 +32,13 @@
     self = [super initWithNavigationBarClass:[UINavigationBar class] toolbarClass:[UIToolbar class]];
     if (self == nil) return nil;
     
+    CGSize fetchSize = CGSizeMake(3000.0f, 3000.0f);
+    
     DTPhotoPreviewController *photoPreviewController = [DTPhotoPreviewController photoPreviewController];
     [photoPreviewController setMediaType:PHAssetMediaTypeImage];
     [photoPreviewController setSourceType:PHAssetSourceTypeUserLibrary];
+    [photoPreviewController setFetchedLimitSize:fetchSize];
+    [photoPreviewController setNumberOfAssetsFetched:1];
     
     [self setViewControllers:@[photoPreviewController]];
     [self setPhotoPreviewController:photoPreviewController];
@@ -70,6 +75,26 @@
 - (PHAssetSourceType)sourceType
 {
     return self.photoPreviewController.sourceType;
+}
+
+- (void)setFetchedLimitSize:(CGSize)fetchedLimitSize
+{
+    [self.photoPreviewController setFetchedLimitSize:fetchedLimitSize];
+}
+
+- (CGSize)fetchedLimitSize
+{
+    return self.photoPreviewController.fetchedLimitSize;
+}
+
+- (void)setNumberOfAssetsFetched:(NSUInteger)numberOfAssetsFetched
+{
+    [self.photoPreviewController setNumberOfAssetsFetched:numberOfAssetsFetched];
+}
+
+- (NSUInteger)numberOfAssetsFetched
+{
+    return self.photoPreviewController.numberOfAssetsFetched;
 }
 
 @end

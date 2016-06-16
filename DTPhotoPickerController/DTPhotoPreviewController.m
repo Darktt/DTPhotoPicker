@@ -11,6 +11,7 @@
 #import "UIImageView+PHAsset.h"
 
 #import "DTPhotoPreviewCell.h"
+#import "DTPhotoPickerController.h"
 
 CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     
@@ -27,6 +28,7 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
 
 @property (retain, nonatomic) PHFetchResult *assets;
 @property (retain, nonatomic) NSMutableArray<PHAsset *> *selectedAssets;
+@property (readonly) DTPhotoPickerController *pickerViewController;
 
 @end
 
@@ -168,6 +170,13 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Override Property
+
+- (DTPhotoPickerController *)pickerViewController
+{
+    return (DTPhotoPickerController *)self.navigationController;
+}
+
 #pragma mark - Actions
 
 - (void)dismissAction:(id)sender
@@ -178,6 +187,46 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
 - (void)applySelectionAction:(id)sender
 {
     
+    NSMutableArray<NSString *> *fetchedVideoPaths = [NSMutableArray arrayWithCapacity:0];
+    
+    for (PHAsset *asset in self.selectedAssets) {
+        
+        if (self.mediaType == PHAssetMediaTypeImage) {
+            
+            
+            
+            continue;
+        }
+        
+        void (^result) (NSString*) = ^(NSString *path) {
+            
+            if (path != nil) {
+                [fetchedVideoPaths addObject:path];
+            }
+        };
+        
+        [self fetchVideoDataPHAsset:asset result:result];
+    }
+    
+    DTPhotoPickerController *pickerViewController = self.pickerViewController;
+    
+    if (fetchedImages.count != 0) {
+        
+        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedImages:)];
+        
+        if (responds) {
+            [pickerViewController.delegate picker:pickerViewController didPickedImages:fetchedImages];
+        }
+    }
+    
+    if (fetchedVideoPaths.count != 0) {
+        
+        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedVideoPaths:)];
+        
+        if (responds) {
+            [pickerViewController.delegate picker:pickerViewController didPickedVideoPaths:fetchedVideoPaths];
+        }
+    }
 }
 
 #pragma mark - Private Methods
@@ -219,11 +268,113 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
         return;
     }
     
-    NSString *selectedTitle = [NSString stringWithFormat:@"Selected(%zd)", count];
+    NSString *format = NSLocalizedString(@"Selected(%zd)", @"");
+    NSString *selectedTitle = [NSString stringWithFormat:format, count];
     UIBarButtonItem *selectedItem = [[UIBarButtonItem alloc] initWithTitle:selectedTitle style:UIBarButtonItemStyleDone target:self action:@selector(applySelectionAction:)];
     
     [self.navigationItem setRightBarButtonItem:selectedItem];
     [selectedItem release];
+}
+
+- (CGSize)imageLimitSizeForAsset:(PHAsset *)asset
+{
+    CGFloat maximumSide = MAX(asset.pixelWidth, asset.pixelHeight);
+    CGFloat maximumFetchedSide = MAX(self.fetchedLimitSize.width, self.fetchedLimitSize.height);
+    CGSize imageSize = CGSizeZero;
+    
+    if (maximumSide > maximumFetchedSide) {
+        imageSize = self.fetchedLimitSize;
+    } else {
+        imageSize = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+    }
+    
+    return imageSize;
+}
+
+- (void)startFetchImages
+{
+    NSMutableArray<UIImage *> *fetchedImages = [NSMutableArray arrayWithCapacity:0];
+    
+    [self fetchImagesWithIndex:0 assets:self.selectedAssets collector:fetchedImages];
+}
+
+- (void)fetchImagesWithIndex:(NSInteger)index assets:(NSArray<PHAsset *> *)assets collector:(NSMutableArray<UIImage *> *)imageCollector
+{
+    if (index == assets.count) {
+        
+        DTPhotoPickerController *pickerViewController = self.pickerViewController;
+        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedImages:)];
+        
+        if (responds) {
+            [pickerViewController.delegate picker:pickerViewController didPickedImages:imageCollector];
+        }
+        
+        return;
+    }
+    
+    PHAsset *asset = assets[index];
+    
+    void (^result) (UIImage *) = ^(UIImage *image) {
+        
+        if (image != nil) {
+            [imageCollector addObject:image];
+        }
+        
+        NSInteger nextIndex = index + 1;
+        [self fetchImagesWithIndex:nextIndex assets:assets collector:imageCollector];
+    };
+    
+    [self fetchImageWithAsset:asset result:result];
+}
+
+- (void)fetchImageWithAsset:(PHAsset *)asset result:(void (^) (UIImage *image))result
+{
+    CGSize imageSize = [self imageLimitSizeForAsset:asset];
+    
+    UICollectionView *collectionView = self.collectionView;
+    
+    PHAssetImageProgressHandler progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        
+        if (error) {
+            return;
+        }
+        
+        NSInteger index = [self.assets indexOfObject:asset];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:index inSection:0];
+        [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+        DTPhotoPreviewCell *cell = (DTPhotoPreviewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        
+        // Update progress when cell exist.
+        if (cell != nil) {
+            [cell setShowsDownloadProgress:YES];
+            [cell setProgress:progress];
+        }
+        
+        NSLog(@"Progress: %.0f", progress * 100.0f);
+        NSLog(@"Info: %@", info);
+    };
+    
+    PHImageManagerFetchImageResultHandler resultHandler = ^(UIImage *image, NSError *error) {
+        
+        if (error) {
+            return;
+        }
+        
+        result(image);
+    };
+    
+    PHImageManager *imageManager = [PHImageManager defaultManager];
+    [imageManager imageWithAsset:asset limitSize:imageSize progressHandler:progressHandler result:resultHandler];
+}
+
+- (void)startFetchVideoPaths
+{
+    
+}
+
+- (void)fetchVideoPathAsset:(PHAsset *)asset result:(void (^) (NSString *path))result
+{
+    
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -267,6 +418,11 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.selectedAssets.count == self.numberOfAssetsFetched) {
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        return;
+    }
+    
     NSInteger index = indexPath.item;
     PHAsset *asset = self.assets[index];
     
@@ -306,10 +462,11 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     CGSize size = frame.size;
     
     CGFloat width = (size.width - 2.0f) / 3.0f;
+    CGSize cellSize = CGSizeMake(width, width);
     
-    [self setCellSize:CGSizeMake(width, width)];
+    [self setCellSize:cellSize];
     
-    return self.cellSize;
+    return cellSize;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section

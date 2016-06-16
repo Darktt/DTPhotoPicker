@@ -33,8 +33,14 @@
     DTPhotoPickerController *photoPickerController = [DTPhotoPickerController photoPickerControllerWithDelegate:self];
     [photoPickerController setMediaType:PHAssetMediaTypeImage];
     [photoPickerController setSourceType:PHAssetSourceTypeUserLibrary];
+    [photoPickerController setNumberOfAssetsFetched:4];
     
     [self presentViewController:photoPickerController animated:YES completion:nil];
+}
+
+- (void)picker:(DTPhotoPickerController *)picker didPickedImages:(NSArray<UIImage *> *)images
+{
+    NSLog(@"Images: %@", images);
 }
 
 @end

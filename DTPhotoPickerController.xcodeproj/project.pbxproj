@@ -21,6 +21,7 @@
 		520725961D018E850044D7E1 /* PHImageManager+ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725911D018E850044D7E1 /* PHImageManager+ImageManager.m */; };
 		520725971D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 520725931D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m */; };
 		52225F121D05170600AA8E6F /* UIImageView+PHAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 52225F111D05170600AA8E6F /* UIImageView+PHAsset.m */; };
+		52C0C4AA1D11216E005D85AD /* DTProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C0C4A91D11216E005D85AD /* DTProgressView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		520725931D018E850044D7E1 /* PHPhotoLibrary+PhotoLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+PhotoLibrary.m"; sourceTree = "<group>"; };
 		52225F101D05170600AA8E6F /* UIImageView+PHAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PHAsset.h"; sourceTree = "<group>"; };
 		52225F111D05170600AA8E6F /* UIImageView+PHAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PHAsset.m"; sourceTree = "<group>"; };
+		52C0C4A81D11216E005D85AD /* DTProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTProgressView.h; sourceTree = "<group>"; };
+		52C0C4A91D11216E005D85AD /* DTProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTProgressView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 			children = (
 				5207258B1D018E850044D7E1 /* Categories */,
 				520725871D0187FC0044D7E1 /* Cell */,
+				52C0C4A81D11216E005D85AD /* DTProgressView.h */,
+				52C0C4A91D11216E005D85AD /* DTProgressView.m */,
 				520725701D0118370044D7E1 /* DTPhotoPickerController.h */,
 				520725711D0118370044D7E1 /* DTPhotoPickerController.m */,
 				5207256D1D0116FE0044D7E1 /* DTPhotoPreviewController.h */,
@@ -218,6 +223,7 @@
 				5207256F1D0116FE0044D7E1 /* DTPhotoPreviewController.m in Sources */,
 				5207258A1D0188230044D7E1 /* DTPhotoPreviewCell.m in Sources */,
 				5207255D1D0116AE0044D7E1 /* ViewController.m in Sources */,
+				52C0C4AA1D11216E005D85AD /* DTProgressView.m in Sources */,
 				520725951D018E850044D7E1 /* PHFetchResult+Array.m in Sources */,
 				5207255A1D0116AE0044D7E1 /* AppDelegate.m in Sources */,
 				520725571D0116AE0044D7E1 /* main.m in Sources */,

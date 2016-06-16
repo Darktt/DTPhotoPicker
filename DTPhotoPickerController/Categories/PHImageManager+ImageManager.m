@@ -8,9 +8,14 @@
 
 #import "PHImageManager+ImageManager.h"
 
+static void _MainQueue(void (^mainQueueBlock) (void)) {
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:mainQueueBlock];
+}
+
 @implementation PHImageManager (ImageManager)
 
-- (void)thumbnailImageWithAsset:(PHAsset *)asset imageSize:(CGSize)size result:(PHImageManagerFetchImageResult)resultHandler
+- (void)thumbnailImageWithAsset:(PHAsset *)asset imageSize:(CGSize)size result:(PHImageManagerFetchImageResultHandler)resultHandler
 {
     PHImageContentMode contentMode = PHImageContentModeAspectFill;
     
@@ -18,19 +23,16 @@
     CGRect square = CGRectMake(0, 0, minimumSide, minimumSide);
     
     PHImageRequestOptions *requestOptions = [PHImageRequestOptions new];
-    [requestOptions setSynchronous:YES];
+    [requestOptions setSynchronous:NO];
     [requestOptions setDeliveryMode:PHImageRequestOptionsDeliveryModeHighQualityFormat];
     [requestOptions setResizeMode:PHImageRequestOptionsResizeModeExact];
     [requestOptions setNormalizedCropRect:square];
+    [requestOptions setNetworkAccessAllowed:YES];
     
     void (^_resultHandler) (UIImage *, NSDictionary *) = ^(UIImage *result, NSDictionary *info) {
         NSError *error = info[PHImageErrorKey];
         
-        if (error != nil) {
-            NSLog(@"Request image error: %@", error);
-        }
-        
-        if (resultHandler != nil) resultHandler(result);
+        if (resultHandler != nil) resultHandler(result, error);
     };
     
     PHImageManager *imageManager = [PHImageManager defaultManager];
@@ -38,12 +40,13 @@
     [requestOptions release];
 }
 
-- (PHImageRequestID)imageWithAsset:(PHAsset *)asset limitSize:(CGSize)size result:(PHImageManagerFetchImageResult)resultHandler
+- (PHImageRequestID)imageWithAsset:(PHAsset *)asset limitSize:(CGSize)size progressHandler:(PHAssetImageProgressHandler)progressHandler result:(PHImageManagerFetchImageResultHandler)resultHandler
 {
     PHImageContentMode contentMode = PHImageContentModeAspectFit;
     
     PHImageRequestOptions *requestOptions = [PHImageRequestOptions new];
-    [requestOptions setSynchronous:NO];
+    [requestOptions setProgressHandler:progressHandler];
+    [requestOptions setSynchronous:YES];
     [requestOptions setVersion:PHImageRequestOptionsVersionCurrent];
     [requestOptions setDeliveryMode:PHImageRequestOptionsDeliveryModeHighQualityFormat];
     [requestOptions setResizeMode:PHImageRequestOptionsResizeModeFast];
@@ -52,15 +55,9 @@
     void (^_resultHandler) (UIImage *, NSDictionary *) = ^(UIImage *result, NSDictionary *info) {
         NSError *error = info[PHImageErrorKey];
         
-        if (error != nil) {
-            NSLog(@"Request image error: %@", error);
-        }
-        
-        if (resultHandler == nil) return;
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            resultHandler(result);
-        }];
+        _MainQueue(^{
+            resultHandler(result, error);
+        });
     };
     
     PHImageManager *imageManager = [PHImageManager defaultManager];

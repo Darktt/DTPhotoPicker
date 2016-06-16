@@ -8,20 +8,29 @@
 @import Photos;
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol DTPhotoPickerControllerDelegate;
+@class DTPhotoPickerController;
+@protocol DTPhotoPickerControllerDelegate <UINavigationControllerDelegate>
+
+@optional
+- (void)picker:(DTPhotoPickerController *)picker didPickedImages:(NSArray<UIImage *> *)images;
+- (void)picker:(DTPhotoPickerController *)picker didPickedVideoPaths:(NSArray<NSString *> *)videoPaths;
+
+@end
+
 @interface DTPhotoPickerController : UINavigationController
 
 @property (assign) PHAssetMediaType mediaType;
 @property (assign) PHAssetSourceType sourceType;
+@property (assign) CGSize fetchedLimitSize;
+@property (assign) NSUInteger numberOfAssetsFetched;
+@property (assign, nonatomic, nullable) id<DTPhotoPickerControllerDelegate> delegate;
 
-+ (instancetype)photoPickerControllerWithDelegate:(id<DTPhotoPickerControllerDelegate>)delegate;
-- (instancetype)initWithDelegate:(id<DTPhotoPickerControllerDelegate>)delegate;
++ (instancetype)photoPickerControllerWithDelegate:(nullable id<DTPhotoPickerControllerDelegate>)delegate;
+- (instancetype)initWithDelegate:(nullable id<DTPhotoPickerControllerDelegate>)delegate;
 
-@end
-
-@protocol DTPhotoPickerControllerDelegate <UINavigationControllerDelegate>
-
-
+- (instancetype)initWithRootViewController:(UIViewController *)rootViewController NS_UNAVAILABLE;
+- (instancetype)initWithNavigationBarClass:(nullable Class)navigationBarClass toolbarClass:(nullable Class)toolbarClass NS_UNAVAILABLE;
+- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil NS_UNAVAILABLE;
 
 @end
 NS_ASSUME_NONNULL_END

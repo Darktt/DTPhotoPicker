@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (assign) PHAssetMediaType mediaType;
 @property (assign) PHAssetSourceType sourceType;
+@property (assign) CGSize fetchedLimitSize;
+@property (assign) NSUInteger numberOfAssetsFetched;
 
 + (instancetype)photoPreviewController;
 

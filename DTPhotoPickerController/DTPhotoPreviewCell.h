@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly) UIImageView *imageView;
 @property (retain, nonatomic) UIColor *selectedColor;
+@property (assign) BOOL showsDownloadProgress;
+@property (assign) CGFloat progress;
 
 + (NSString *)cellIdentifier;
 
