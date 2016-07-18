@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) PHAssetSourceType sourceType;
 @property (assign) CGSize fetchedLimitSize;
 @property (assign) NSUInteger numberOfAssetsFetched;
+@property (retain, nonatomic) UIColor *tintColor;
 
 + (instancetype)photoPreviewController;
 

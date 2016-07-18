@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign) PHAssetSourceType sourceType;
 @property (assign) CGSize fetchedLimitSize;
 @property (assign) NSUInteger numberOfAssetsFetched;
+@property (assign, nonatomic) UIColor *tintColor;
+
 @property (assign, nonatomic, nullable) id<DTPhotoPickerControllerDelegate> delegate;
 
 + (instancetype)photoPickerControllerWithDelegate:(nullable id<DTPhotoPickerControllerDelegate>)delegate;

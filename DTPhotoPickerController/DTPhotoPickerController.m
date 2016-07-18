@@ -98,4 +98,15 @@
     return self.photoPreviewController.numberOfAssetsFetched;
 }
 
+- (void)setTintColor:(UIColor *)tintColor
+{
+    [self.navigationBar setTintColor:tintColor];
+    [self.photoPreviewController setTintColor:tintColor];
+}
+
+- (UIColor *)tintColor
+{
+    return self.photoPreviewController.tintColor;
+}
+
 @end

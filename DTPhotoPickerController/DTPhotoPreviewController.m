@@ -89,7 +89,7 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     [self setTitle:title];
     
     if (self.popoverPresentationController == nil) {
-        NSString *dismissTitle = NSLocalizedString(@"Dissmiss", @"");
+        NSString *dismissTitle = NSLocalizedString(@"Dismiss", @"");
         UIBarButtonItem *barbuttonItem = [[UIBarButtonItem alloc] initWithTitle:dismissTitle style:UIBarButtonItemStylePlain target:self action:@selector(dismissAction:)];
         
         [self.navigationItem setLeftBarButtonItem:barbuttonItem];
@@ -406,6 +406,10 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     DTPhotoPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     [cell.imageView setImageWithAsset:asset forImageSize:imageSize];
     [cell setSelected:selected];
+    
+    if (self.tintColor != nil) {
+        [cell setSelectedColor:self.tintColor];
+    }
     
     if (selected) {
         index = [self.selectedAssets indexOfObject:asset] + 1;
