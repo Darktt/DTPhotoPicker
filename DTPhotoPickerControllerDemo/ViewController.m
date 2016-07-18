@@ -41,6 +41,8 @@
 - (void)picker:(DTPhotoPickerController *)picker didPickedImages:(NSArray<UIImage *> *)images
 {
     NSLog(@"Images: %@", images);
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -42,6 +42,7 @@
     
     [self setViewControllers:@[photoPreviewController]];
     [self setPhotoPreviewController:photoPreviewController];
+    [self setDelegate:delegate];
     
     return self;
 }

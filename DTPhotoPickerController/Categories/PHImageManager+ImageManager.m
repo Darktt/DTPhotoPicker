@@ -20,13 +20,13 @@ static void _MainQueue(void (^mainQueueBlock) (void)) {
     PHImageContentMode contentMode = PHImageContentModeAspectFill;
     
     CGFloat minimumSide = MIN(asset.pixelWidth, asset.pixelHeight);
-    CGRect square = CGRectMake(0, 0, minimumSide, minimumSide);
+    CGRect cropRect = CGRectMake(0, 0, minimumSide, minimumSide);
     
     PHImageRequestOptions *requestOptions = [PHImageRequestOptions new];
     [requestOptions setSynchronous:NO];
     [requestOptions setDeliveryMode:PHImageRequestOptionsDeliveryModeHighQualityFormat];
     [requestOptions setResizeMode:PHImageRequestOptionsResizeModeExact];
-    [requestOptions setNormalizedCropRect:square];
+    [requestOptions setNormalizedCropRect:cropRect];
     [requestOptions setNetworkAccessAllowed:YES];
     
     void (^_resultHandler) (UIImage *, NSDictionary *) = ^(UIImage *result, NSDictionary *info) {

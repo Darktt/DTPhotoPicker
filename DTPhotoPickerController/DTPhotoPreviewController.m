@@ -184,49 +184,18 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)applySelectionAction:(id)sender
+- (void)applySelectionAction:(UIBarButtonItem *)sender
 {
+    [sender setEnabled:NO];
     
-    NSMutableArray<NSString *> *fetchedVideoPaths = [NSMutableArray arrayWithCapacity:0];
-    
-    for (PHAsset *asset in self.selectedAssets) {
+    if (self.mediaType == PHAssetMediaTypeImage) {
         
-        if (self.mediaType == PHAssetMediaTypeImage) {
-            
-            
-            
-            continue;
-        }
+        [self startFetchImages];
         
-        void (^result) (NSString*) = ^(NSString *path) {
-            
-            if (path != nil) {
-                [fetchedVideoPaths addObject:path];
-            }
-        };
-        
-        [self fetchVideoDataPHAsset:asset result:result];
+        return;
     }
     
-    DTPhotoPickerController *pickerViewController = self.pickerViewController;
-    
-    if (fetchedImages.count != 0) {
-        
-        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedImages:)];
-        
-        if (responds) {
-            [pickerViewController.delegate picker:pickerViewController didPickedImages:fetchedImages];
-        }
-    }
-    
-    if (fetchedVideoPaths.count != 0) {
-        
-        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedVideoPaths:)];
-        
-        if (responds) {
-            [pickerViewController.delegate picker:pickerViewController didPickedVideoPaths:fetchedVideoPaths];
-        }
-    }
+    [self startFetchVideoPaths];
 }
 
 #pragma mark - Private Methods
@@ -336,6 +305,7 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     PHAssetImageProgressHandler progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
         
         if (error) {
+            NSLog(@"Process image from asset error, reason: %@", error.localizedDescription);
             return;
         }
         
@@ -357,6 +327,9 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
     PHImageManagerFetchImageResultHandler resultHandler = ^(UIImage *image, NSError *error) {
         
         if (error) {
+            
+            NSLog(@"Fetch image from asset error, reason: %@", error.localizedDescription);
+            result(nil);
             return;
         }
         
@@ -369,10 +342,41 @@ CGSize CGSizeApplyScale(CGSize size, CGFloat scale) {
 
 - (void)startFetchVideoPaths
 {
+    NSMutableArray<NSString *> *fetchedVideoPaths = [NSMutableArray arrayWithCapacity:0];
     
+    [self fetchVideoPathsWithIndex:0 assets:self.selectedAssets collector:fetchedVideoPaths];
 }
 
-- (void)fetchVideoPathAsset:(PHAsset *)asset result:(void (^) (NSString *path))result
+- (void)fetchVideoPathsWithIndex:(NSInteger)index assets:(NSArray<PHAsset *> *)assets collector:(NSMutableArray<NSString *> *)videoPathCollector
+{
+    if (index == assets.count) {
+        
+        DTPhotoPickerController *pickerViewController = self.pickerViewController;
+        BOOL responds = [pickerViewController.delegate respondsToSelector:@selector(picker:didPickedVideoPaths:)];
+        
+        if (responds) {
+            [pickerViewController.delegate picker:pickerViewController didPickedVideoPaths:videoPathCollector];
+        }
+        
+        return;
+    }
+    
+    PHAsset *asset = assets[index];
+    
+    void (^result) (NSString *) = ^(NSString *path) {
+        
+        if (path != nil) {
+            [videoPathCollector addObject:path];
+        }
+        
+        NSInteger nextIndex = index + 1;
+        [self fetchVideoPathsWithIndex:nextIndex assets:self.selectedAssets collector:videoPathCollector];
+    };
+    
+    [self fetchVideoPathForAsset:asset result:result];
+}
+
+- (void)fetchVideoPathForAsset:(PHAsset *)asset result:(void (^) (NSString *path))result
 {
     
 }
